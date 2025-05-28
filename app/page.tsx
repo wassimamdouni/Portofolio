@@ -139,6 +139,24 @@ function WebDeveloperModel() {
   )
 }
 
+function DataScientistModel() {
+  const { scene } = useGLTF("/models/data_scientist/data_science.glb")
+  const modelRef = useRef<THREE.Group>(null)
+
+  useFrame((state) => {
+    if (modelRef.current) {
+      modelRef.current.rotation.y = state.clock.elapsedTime * 0.4
+      modelRef.current.position.y = Math.sin(state.clock.elapsedTime * 1.5) * 0.3
+    }
+  })
+
+  return (
+    <Float speed={1.8} rotationIntensity={0.3} floatIntensity={0.6}>
+      <primitive ref={modelRef} object={scene} scale={[1.5, 1.5, 1.5]} position={[0, -0.5, 0]} rotation={[0, 0, 0]} />
+    </Float>
+  )
+}
+
 function ProfessionalSummary3D({ currentRole }: { currentRole: string }) {
   const groupRef = useRef<THREE.Group>(null)
 
@@ -153,18 +171,8 @@ function ProfessionalSummary3D({ currentRole }: { currentRole: string }) {
   if (currentRole === "Data Scientist") {
     return (
       <group ref={groupRef}>
-        {/* AI Brain Core */}
-        <Float speed={2} rotationIntensity={0.5} floatIntensity={0.8}>
-          <Sphere args={[1, 32, 32]} position={[0, 0, 0]}>
-            <meshStandardMaterial
-              color="#8b5cf6"
-              emissive="#4c1d95"
-              emissiveIntensity={0.4}
-              roughness={0.2}
-              metalness={0.8}
-            />
-          </Sphere>
-        </Float>
+         {/* Your Custom Data Scientist Model */}
+         <DataScientistModel/>
 
         {/* Neural Network Nodes */}
         {Array.from({ length: 12 }).map((_, i) => {
