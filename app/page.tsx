@@ -350,53 +350,87 @@ function ProfessionalSummary3D({ currentRole }: { currentRole: string }) {
         {/* Your Custom Web Developer Model */}
         <IOTDeveloperModel />
 
-        {/* IoT Sensors Network */}
-        {Array.from({ length: 10 }).map((_, i) => {
-          const angle = (i / 10) * Math.PI * 2
-          const radius = 2.8
-          const height = Math.sin(i * 0.5) * 1.5
+        {/* Orbiting App Icons around your model */}
+        {Array.from({ length: 8 }).map((_, i) => {
+          const angle = (i / 8) * Math.PI * 2
+          const radius = 3.5
           return (
-            <Float key={i} speed={1.3 + i * 0.1} rotationIntensity={0.3} floatIntensity={0.5}>
-              <group position={[Math.cos(angle) * radius, height, Math.sin(angle) * radius]}>
-                {/* Sensor Device */}
-                <Box args={[0.3, 0.6, 0.3]}>
-                  <meshStandardMaterial color="#374151" emissive="#1f2937" emissiveIntensity={0.2} />
-                </Box>
-                {/* Sensor Light */}
-                <Sphere args={[0.1, 8, 8]} position={[0, 0.4, 0]}>
+            <Float key={i} speed={2 + i * 0.1} rotationIntensity={0.5} floatIntensity={0.8}>
+              <group
+                position={[
+                  Math.cos(angle + Date.now() * 0.001) * radius,
+                  Math.sin(angle * 0.7) * 2,
+                  Math.sin(angle + Date.now() * 0.001) * radius,
+                ]}
+              >
+                <Box args={[0.4, 0.4, 0.1]} rotation={[0, angle, 0]}>
                   <meshStandardMaterial
-                    color={i % 3 === 0 ? "#ef4444" : i % 3 === 1 ? "#f59e0b" : "#06b6d4"}
-                    emissive={i % 3 === 0 ? "#dc2626" : i % 3 === 1 ? "#d97706" : "#0891b2"}
-                    emissiveIntensity={0.8}
+                    color={i % 4 === 0 ? "#ef4444" : i % 4 === 1 ? "#10b981" : i % 4 === 2 ? "#f59e0b" : "#8b5cf6"}
+                    emissive={i % 4 === 0 ? "#dc2626" : i % 4 === 1 ? "#047857" : i % 4 === 2 ? "#d97706" : "#4c1d95"}
+                    emissiveIntensity={0.4}
                   />
-                </Sphere>
-                {/* Antenna */}
-                <Cylinder args={[0.02, 0.02, 0.5, 8]} position={[0, 0.8, 0]}>
-                  <meshStandardMaterial color="#6b7280" />
-                </Cylinder>
+                </Box>
               </group>
             </Float>
           )
         })}
 
-        {/* Data Transmission Lines */}
-        {Array.from({ length: 6 }).map((_, i) => (
-          <Float key={i} speed={2 + i * 0.2} rotationIntensity={0.1} floatIntensity={0.3}>
+        {/* Code Particles floating around */}
+        {Array.from({ length: 15 }).map((_, i) => (
+          <Float key={i} speed={1.8 + i * 0.1} rotationIntensity={0.8} floatIntensity={1.2}>
             <Box
-              args={[0.03, 0.03, 4]}
-              position={[Math.cos((i / 6) * Math.PI * 2) * 2, 0, Math.sin((i / 6) * Math.PI * 2) * 2]}
-              rotation={[0, (i / 6) * Math.PI * 2, Math.PI / 2]}
+              args={[0.1, 0.1, 0.1]}
+              position={[(Math.random() - 0.5) * 7, (Math.random() - 0.5) * 5, (Math.random() - 0.5) * 7]}
             >
               <meshStandardMaterial
-                color="#10b981"
+                color="#06b6d4"
+                emissive="#0891b2"
+                emissiveIntensity={0.6}
                 transparent
-                opacity={0.5}
-                emissive="#047857"
-                emissiveIntensity={0.4}
+                opacity={0.7}
               />
             </Box>
           </Float>
         ))}
+
+        {/* Development Tools orbiting */}
+        {Array.from({ length: 4 }).map((_, i) => {
+          const angle = (i / 4) * Math.PI * 2
+          const radius = 2.8
+          return (
+            <Float key={i} speed={1.5 + i * 0.2} rotationIntensity={0.3} floatIntensity={0.6}>
+              <group
+                position={[
+                  Math.cos(angle + Date.now() * 0.0008) * radius,
+                  Math.sin(i * 1.2) * 1.5,
+                  Math.sin(angle + Date.now() * 0.0008) * radius,
+                ]}
+              >
+                {/* Tool representations */}
+                {i === 0 && (
+                  <Box args={[0.3, 0.5, 0.05]}>
+                    <meshStandardMaterial color="#10b981" emissive="#047857" emissiveIntensity={0.4} />
+                  </Box>
+                )}
+                {i === 1 && (
+                  <Cylinder args={[0.15, 0.15, 0.4, 8]}>
+                    <meshStandardMaterial color="#f59e0b" emissive="#d97706" emissiveIntensity={0.4} />
+                  </Cylinder>
+                )}
+                {i === 2 && (
+                  <Sphere args={[0.2, 12, 12]}>
+                    <meshStandardMaterial color="#ef4444" emissive="#dc2626" emissiveIntensity={0.4} />
+                  </Sphere>
+                )}
+                {i === 3 && (
+                  <Box args={[0.25, 0.25, 0.25]}>
+                    <meshStandardMaterial color="#8b5cf6" emissive="#4c1d95" emissiveIntensity={0.4} />
+                  </Box>
+                )}
+              </group>
+            </Float>
+          )
+        })}
       </group>
     )
   }
