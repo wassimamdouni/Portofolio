@@ -102,6 +102,7 @@ function Navigation() {
     </nav>
   )
 }
+// Mobile Developer Model 3D
 
 function MobileDeveloperModel() {
   const { scene } = useGLTF("/models/mobile/mobile_app.glb")
@@ -121,6 +122,7 @@ function MobileDeveloperModel() {
   )
 }
 
+// Web Developer Model 3D
 function WebDeveloperModel() {
   const { scene } = useGLTF("/models/web/web_dev3.glb")
   const modelRef = useRef<THREE.Group>(null)
@@ -139,6 +141,7 @@ function WebDeveloperModel() {
   )
 }
 
+//Data Scientist Model 3D
 function DataScientistModel() {
   const { scene } = useGLTF("/models/data_scientist/data_science.glb")
   const modelRef = useRef<THREE.Group>(null)
