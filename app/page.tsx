@@ -157,6 +157,24 @@ function DataScientistModel() {
   )
 }
 
+function IOTDeveloperModel() {
+  const { scene } = useGLTF("/models/iot/iot_dev.glb")
+  const modelRef = useRef<THREE.Group>(null)
+
+  useFrame((state) => {
+    if (modelRef.current) {
+      modelRef.current.rotation.y = state.clock.elapsedTime * 0.4
+      modelRef.current.position.y = Math.sin(state.clock.elapsedTime * 1.5) * 0.3
+    }
+  })
+
+  return (
+    <Float speed={1.8} rotationIntensity={0.3} floatIntensity={0.6}>
+      <primitive ref={modelRef} object={scene} scale={[1.5, 1.5, 1.5]} position={[0, -0.5, 0]} rotation={[0, 0, 0]} />
+    </Float>
+  )
+}
+
 function ProfessionalSummary3D({ currentRole }: { currentRole: string }) {
   const groupRef = useRef<THREE.Group>(null)
 
@@ -326,18 +344,8 @@ function ProfessionalSummary3D({ currentRole }: { currentRole: string }) {
   if (currentRole === "IoT Developer") {
     return (
       <group ref={groupRef}>
-        {/* Central IoT Hub */}
-        <Float speed={1.5} rotationIntensity={0.4} floatIntensity={0.7}>
-          <Cylinder args={[0.8, 1.2, 1.5, 8]} position={[0, 0, 0]}>
-            <meshStandardMaterial
-              color="#10b981"
-              emissive="#047857"
-              emissiveIntensity={0.4}
-              roughness={0.3}
-              metalness={0.7}
-            />
-          </Cylinder>
-        </Float>
+        {/* Your Custom Web Developer Model */}
+        <IOTDeveloperModel />
 
         {/* IoT Sensors Network */}
         {Array.from({ length: 10 }).map((_, i) => {
