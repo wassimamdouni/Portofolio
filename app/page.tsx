@@ -104,7 +104,25 @@ function Navigation() {
 }
 
 function MobileDeveloperModel() {
-  const { scene } = useGLTF("/models/mobile_app.glb")
+  const { scene } = useGLTF("/models/mobile/mobile_app.glb")
+  const modelRef = useRef<THREE.Group>(null)
+
+  useFrame((state) => {
+    if (modelRef.current) {
+      modelRef.current.rotation.y = state.clock.elapsedTime * 0.4
+      modelRef.current.position.y = Math.sin(state.clock.elapsedTime * 1.5) * 0.3
+    }
+  })
+
+  return (
+    <Float speed={1.8} rotationIntensity={0.3} floatIntensity={0.6}>
+      <primitive ref={modelRef} object={scene} scale={[1.5, 1.5, 1.5]} position={[0, -0.5, 0]} rotation={[0, 0, 0]} />
+    </Float>
+  )
+}
+
+function WebDeveloperModel() {
+  const { scene } = useGLTF("/models/web/web_dev3.glb")
   const modelRef = useRef<THREE.Group>(null)
 
   useFrame((state) => {
@@ -368,22 +386,8 @@ function ProfessionalSummary3D({ currentRole }: { currentRole: string }) {
   if (currentRole === "Web Developer") {
     return (
       <group ref={groupRef}>
-        {/* Central Server */}
-        <Float speed={1.5} rotationIntensity={0.3} floatIntensity={0.6}>
-          <Box args={[1.5, 2, 0.8]} position={[0, 0, 0]}>
-            <meshStandardMaterial color="#1f2937" emissive="#374151" emissiveIntensity={0.3} />
-          </Box>
-          {/* Server Lights */}
-          {Array.from({ length: 8 }).map((_, i) => (
-            <Sphere key={i} args={[0.08, 8, 8]} position={[0.6, 0.8 - i * 0.2, 0.41]}>
-              <meshStandardMaterial
-                color={i % 2 === 0 ? "#10b981" : "#ef4444"}
-                emissive={i % 2 === 0 ? "#047857" : "#dc2626"}
-                emissiveIntensity={0.8}
-              />
-            </Sphere>
-          ))}
-        </Float>
+        {/* Your Custom Web Developer Model */}
+        <WebDeveloperModel />
 
         {/* Floating Web Pages */}
         {Array.from({ length: 6 }).map((_, i) => {
